@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 app = FastAPI(
-    title= 'Gumenyuk_shop'
+    title='Gumenyuk_shop'
 )
 
 
