@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, VARCHAR
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.services.databases.models.base import Base
+from app.services.database.models.base import Base
 
 
 class Category(Base):

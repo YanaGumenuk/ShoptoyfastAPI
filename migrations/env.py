@@ -7,7 +7,7 @@ from sqlalchemy import pool
 from alembic import context
 
 
-from app.services.databases.models.base import Base
+from app.services.database.models.base import Base
 
 from app.core.settings import settings
 
