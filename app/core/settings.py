@@ -24,8 +24,9 @@ class Settings(BaseSettings):
             db_port=self.DB_PORT,
             db_name=self.DB_NAME,
         )
-
-settings = Settings()
+@lru_cache(typed=True)
+def load_settings() -> Settings:
+    return Settings()
 
 #    def get_url(self) -> str:
         #return f'postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}'

@@ -9,12 +9,12 @@ from alembic import context
 
 from app.services.database.models.base import Base
 
-from app.core.settings import settings
+from app.core.settings import load_settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-config.set_main_option("sqlalchemy.url", settings.db_url+'?async_fallback=True')
+config.set_main_option("sqlalchemy.url", load_settings().db_url+'?async_fallback=True')
 
 
 # Interpret the config file for Python logging.

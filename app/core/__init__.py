@@ -1,3 +1,3 @@
-from app.core.settings import settings
+from app.core.settings import load_settings
 
-__all__ = ('settings')
+__all__ = ('load_settings')
