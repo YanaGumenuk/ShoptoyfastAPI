@@ -4,12 +4,12 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file='.env',
+        env_file='./.env',
         env_file_encoding='utf-8',
-        case_sensitive=False
+        case_sensitive=True
     )
     DB_HOST: str
-    DB_PORT: str
+    DB_PORT: int
     DB_NAME: str
     DB_USER: str
     DB_PASS: str
@@ -24,11 +24,11 @@ class Settings(BaseSettings):
             db_port=self.DB_PORT,
             db_name=self.DB_NAME,
         )
+
+
 @lru_cache(typed=True)
 def load_settings() -> Settings:
+    print(Settings().db_url)
     return Settings()
-
-#    def get_url(self) -> str:
-        #return f'postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}'
 
 

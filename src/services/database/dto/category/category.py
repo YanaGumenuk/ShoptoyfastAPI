@@ -1,0 +1,26 @@
+from pydantic import BaseModel
+from src.services.database.dto.base import BaseInDB
+
+
+class CategoryCreate(BaseModel):
+    name: str
+
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            "name": "Toy"
+        }
+
+
+class CategoryInDB(
+    CategoryCreate,
+    BaseInDB
+):
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            "id": 1,
+            "created_at": "2023-04-02 22:26:20.245464 +00:00",
+            "updated_at": "2023-04-02 22:26:20.245464 +00:00",
+            "name": "Toy",
+        }
