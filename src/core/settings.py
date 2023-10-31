@@ -28,7 +28,6 @@ class Settings(BaseSettings):
 
 @lru_cache(typed=True)
 def load_settings() -> Settings:
-    print(Settings().db_url)
     return Settings()
 
 
