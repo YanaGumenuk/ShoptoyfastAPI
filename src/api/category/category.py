@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi import APIRouter, Depends
 
-from src.services.database.dto.category.category import CategoryCreate, CategoryInDB
+from src.services.database.dto.category.category import CategoryCreate, CategoryInDB, CategoryUpdate, CategoryDelete
 from src.services.database.repositories.category.category import CategoryCrud
 
 router = APIRouter()
@@ -34,20 +34,19 @@ async def category_get_one(
     return result
 
 
-@router.post('/update')
+@router.put('/update')
 async def update(
-        id: int,
-        name: CategoryCreate,
+        data: CategoryUpdate,
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> CategoryInDB:
-    result = await crud.update(category_id=id, name_category=name)
+    result = await crud.update(category_id=data.id, name_category=data.name)
     return result
 
 
 @router.post('/delete')
 async def delete(
-        category_id: int,
+        data: CategoryDelete,
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> Optional[CategoryInDB]:
-    result = await crud.delete(category_id=category_id)
+    result = await crud.delete(category_id=data.id)
     return result

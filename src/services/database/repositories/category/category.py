@@ -3,7 +3,7 @@ from typing import Any, Optional, TypeVar, List
 from sqlalchemy import insert, select, update, delete
 
 from src.services.database.repositories.base import BaseCrud
-from src.services.database.dto.category.category import CategoryCreate, CategoryInDB
+from src.services.database.dto.category.category import CategoryCreate, CategoryInDB, CategoryUpdate
 from src.services.database.models.product.category import Category
 
 
@@ -28,11 +28,11 @@ class CategoryCrud(BaseCrud):
         await self.session.commit()
         return result.first()
 
-    async def update(self, category_id: int, name_category: CategoryCreate) -> Optional[CategoryInDB]:
+    async def update(self, category_id: int, name_category: str) -> Optional[CategoryInDB]:
         stmt = (
             update(Category)
             .where(Category.id == category_id)
-            .values(name=name_category.name)
+            .values(name=name_category)
             .returning(Category)
         )
         result = await self.session.execute(stmt)

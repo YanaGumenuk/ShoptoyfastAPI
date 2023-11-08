@@ -24,3 +24,25 @@ class CategoryInDB(
             "updated_at": "2023-04-02 22:26:20.245464 +00:00",
             "name": "Toy",
         }
+
+
+class CategoryUpdate(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            'id': 1,
+            'name': 'Toy'
+        }
+
+
+class CategoryDelete(BaseModel):
+    id: int
+
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            'id': 1
+        }
