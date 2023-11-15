@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from src.services.database.dto.base import BaseInDB
+
+from src.common.dto.base import BaseInDB
 
 
 class CategoryCreate(BaseModel):

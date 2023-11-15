@@ -1,9 +1,12 @@
-from typing import Any, Optional, TypeVar, List
+from typing import Optional
 
+from fastapi.exceptions import ResponseValidationError
 from sqlalchemy import insert, select, update, delete
+from sqlalchemy.exc import NoResultFound
 
+from src.common.dto.category.category import CategoryCreate, CategoryInDB
 from src.services.database.repositories.base import BaseCrud
-from src.services.database.dto.category.category import CategoryCreate, CategoryInDB, CategoryUpdate
+
 from src.services.database.models.product.category import Category
 
 
@@ -12,9 +15,9 @@ class CategoryCrud(BaseCrud):
     async def create(self, new_category: CategoryCreate) -> CategoryInDB:
         stmt = (insert(Category).values(**new_category.__dict__).returning(Category))
         result = await self.session.execute(stmt)
-        print(result)
         await self.session.commit()
         return result.scalar_one_or_none()
+
 
     async def get_all(self) -> Optional[CategoryInDB]:
         stmt = (select(Category))
@@ -27,6 +30,8 @@ class CategoryCrud(BaseCrud):
         result = await self.session.execute(stmt)
         await self.session.commit()
         return result.first()
+
+
 
     async def update(self, category_id: int, name_category: str) -> Optional[CategoryInDB]:
         stmt = (

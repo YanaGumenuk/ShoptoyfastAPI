@@ -1,8 +1,10 @@
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends
+from fastapi.exceptions import ResponseValidationError, HTTPException
+from sqlalchemy.exc import IntegrityError
 
-from src.services.database.dto.category.category import CategoryCreate, CategoryInDB, CategoryUpdate, CategoryDelete
+from src.common.dto.category.category import CategoryCreate, CategoryInDB, CategoryUpdate, CategoryDelete
 from src.services.database.repositories.category.category import CategoryCrud
 
 router = APIRouter()
@@ -14,7 +16,15 @@ async def category_create(
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> CategoryInDB:
     result = await crud.create(new_category=data)
-    return result
+    if result:
+        return result
+    raise IntegrityError(
+            body="The user with this username already exists in the system",
+        )
+
+
+
+
 
 
 @router.get('/get_all')
