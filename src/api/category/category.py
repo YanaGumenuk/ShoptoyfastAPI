@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends
-from fastapi.exceptions import ResponseValidationError, HTTPException
+from fastapi.exceptions import HTTPException
 from sqlalchemy.exc import IntegrityError
 
 from src.common.dto.category.category import CategoryCreate, CategoryInDB, CategoryUpdate, CategoryDelete
@@ -15,40 +15,40 @@ async def category_create(
         data: CategoryCreate,
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> CategoryInDB:
-    result = await crud.create(new_category=data)
-    if result:
+    try:
+        result = await crud.create(new_category=data)
         return result
-    raise IntegrityError(
-            body="The user with this username already exists in the system",
+    except IntegrityError:
+        raise HTTPException(
+            status_code=403,
+            detail='Category exists'
         )
-
-
-
-
 
 
 @router.get('/get_all')
 async def category_get(
         crud: CategoryCrud = Depends(CategoryCrud)
-) -> List[CategoryInDB]:
+) -> List[CategoryInDB] | None:
     result = await crud.get_all()
     return result
 
 
 @router.get('/get_one')
 async def category_get_one(
-        category_id: int,
+        data: int,
         crud: CategoryCrud = Depends(CategoryCrud)
-) -> List[CategoryInDB]:
-    result = await crud.get_one(category_id=category_id)
+) -> Optional[List[CategoryInDB]]:
+    result = await crud.get_one(category_id=data)
     return result
+
+
 
 
 @router.put('/update')
 async def update(
         data: CategoryUpdate,
         crud: CategoryCrud = Depends(CategoryCrud)
-) -> CategoryInDB:
+) -> CategoryInDB | None:
     result = await crud.update(category_id=data.id, name_category=data.name)
     return result
 
