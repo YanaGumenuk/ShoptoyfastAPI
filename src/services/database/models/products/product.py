@@ -11,8 +11,10 @@ class Product(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey('category.id', ondelete='CASCADE'), nullable=False)
+    image_id: Mapped[int] = mapped_column(Integer, ForeignKey('images.id', ondelete='CASCADE'), nullable=True)
     price: Mapped[int] = mapped_column(DECIMAL(10, 2), nullable=False)
     available: Mapped[bool] = mapped_column(Boolean, default=True)
     description: Mapped[str] = mapped_column(Text, default=None, nullable=True)
 
     category = relationship('Category', back_populates='products')
+    images = relationship('Image', back_populates='products')
