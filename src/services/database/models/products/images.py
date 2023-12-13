@@ -8,8 +8,8 @@ class Image(Base):
     __tablename__ = 'images'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     url: Mapped[str]
-    product_id: Mapped[int] = mapped_column(Integer, ForeignKey('product.id', ondelete='CASCADE'), nullable=False)
-    category_id: Mapped[int] = mapped_column(Integer, ForeignKey('category.id', ondelete='CASCADE'), nullable=False)
+    product_id: Mapped[int] = mapped_column(Integer, ForeignKey('product.id', ondelete='CASCADE'), nullable=True)
+    category_id: Mapped[int] = mapped_column(Integer, ForeignKey('category.id', ondelete='CASCADE'), nullable=True)
     products = relationship('Product', back_populates='images')
     category = relationship('Category', back_populates='images')
 
