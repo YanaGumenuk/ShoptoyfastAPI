@@ -15,6 +15,7 @@ async def category_create(
         data: CategoryCreate,
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> CategoryInDB:
+    print(10)
     try:
         result = await crud.create(new_category=data)
         return result

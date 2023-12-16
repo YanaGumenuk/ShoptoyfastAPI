@@ -15,9 +15,9 @@ class ProductUpdateDTO(BaseModel):
     class Config:
         from_attributes = True
         json_schema_extra = {
-            'name': "Toy",
-            'price': '178.9',
-            'available': 'True',
+            'name': 'Toy',
+            'price': 178.9,
+            'available': True,
             'description': 'Loren ipsum',
         }
 
@@ -29,8 +29,8 @@ class ProductCreateDTO(ProductUpdateDTO):
         from_attributes = True
         json_schema_extra = {
             'name': "Toy",
-            'price': '178.9',
-            'available': 'True',
+            'price': 178.9,
+            'available': True,
             'description': 'Loren ipsum',
         }
 
@@ -43,9 +43,9 @@ class ProductInDB(BaseInDB, ProductCreateDTO):
             'create_at': '2023-11-15 22:03:21.605901 +00:00',
             'updated_at': '2023-11-15 22:03:21.605901 +00:00',
             'name': "Toy",
-            'category_id': '2',
-            'price': '178.9',
-            'available': 'True',
+            'category_id': 2,
+            'price': 178.9,
+            'available': True,
             'description': 'Loren ipsum',
         }
 
@@ -63,8 +63,8 @@ class ProductUpdateInDB(BaseModel):
         json_schema_extra = {
             'id': 1,
             'name': "Toy",
-            'category_id': '2',
-            'price': '178.9',
-            'available': 'True',
+            'category_id': 2,
+            'price': 178.9,
+            'available': True,
             'description': 'Loren ipsum',
         }

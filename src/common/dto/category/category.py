@@ -47,3 +47,4 @@ class CategoryDelete(BaseModel):
         json_schema_extra = {
             'id': 1
         }
+
