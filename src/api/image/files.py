@@ -3,7 +3,7 @@ from random import choice, random
 from datetime import datetime
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, File
 from sqlalchemy import insert, select, update, delete
 
 from fastapi import UploadFile, HTTPException
@@ -33,26 +33,21 @@ class ImageCrud(BaseCrud):
 
 
 @router.post('/uploadfile/')
-async def create_upload_file(file: UploadFile, data: ProductImageDTO,
-                             crud: ImageCrud = Depends(ImageCrud)) -> Optional[ImageInDB]:
-    print(9)
-    if not file.content_type == 'image/jpeg' and not file.size <= 300000:
-        raise HTTPException(status_code=500, detail='ti menya ne na.. provedesh')
-    now = datetime.now()
-    name = now.strftime("%m%d%Y%H%M%S")
-    for i in range(6):
-        name = str(name) + choice(string.ascii_uppercase)
-    filename = f'{name}.jpeg'
-    file_path = f'C:\\images\\{filename}'
-    with open(f'C:\\images\\{name}.jpeg', 'wb') as f:
-        f.write(await file.read())
-    result = await crud.create(url=file_path, new_image=data)
-    return result
+async def create_upload_file(file: UploadFile = File(...), data: ProductImageDTO = Depends()) -> Optional[ImageInDB]:
+    print(file)
+    #if not file.content_type == 'image/jpeg' and not file.size <= 300000:
+        #raise HTTPException(status_code=500, detail='ti menya ne na.. provedesh')
+    #now = datetime.now()
+    # name = now.strftime("%m%d%Y%H%M%S")
+    # for i in range(6):
+    #     name = str(name) + choice(string.ascii_uppercase)
+    # filename = f'{name}.jpeg'
+    # file_path = f'C:\\images\\{filename}'
+    # with open(f'C:\\images\\{name}.jpeg', 'wb') as f:
+    #     f.write(await file.read())
+    # result = await crud.create(url=file_path, new_image=data)
+    # return result
 
-def validate_data(data: ProductImageDTO):
-    ProductImageDTO(**data.__dict__)
-
-print(validate_data.__dict__)
 
 # url = f'C:\\images\\{create_upload_file.name}.jpeg'
 # class ProductCrud(BaseCrud):

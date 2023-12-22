@@ -14,6 +14,5 @@ class Product(Base):
     price: Mapped[int] = mapped_column(DECIMAL(10, 2), nullable=False)
     available: Mapped[bool] = mapped_column(Boolean, default=True)
     description: Mapped[str] = mapped_column(Text, default=None, nullable=True)
-    category = relationship('Category', back_populates='products')
-    images = relationship('Image', back_populates='products')
+    images = relationship('Image', backref='products')
 

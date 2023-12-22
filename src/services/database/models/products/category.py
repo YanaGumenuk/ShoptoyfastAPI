@@ -9,10 +9,10 @@ class Category(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, unique=True, index=True)
 
-    products = relationship('Product', back_populates='category')
-    images = relationship('Image', back_populates='category')
+    products = relationship('Product', backref='category')
+    images = relationship('Image', backref='category')
 
-#backref
+
 
 
 

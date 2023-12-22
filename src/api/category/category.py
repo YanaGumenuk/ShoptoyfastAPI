@@ -4,18 +4,17 @@ from fastapi import APIRouter, Depends
 from fastapi.exceptions import HTTPException
 from sqlalchemy.exc import IntegrityError
 
-from src.common.dto.category.category import CategoryCreate, CategoryInDB, CategoryUpdate, CategoryDelete
+from src.common.dto.category.category import CategoryCreate, CategoryInDB
 from src.services.database.repositories.category.category import CategoryCrud
 
 router = APIRouter()
 
 
-@router.post('/')
+@router.post('/create')
 async def category_create(
         data: CategoryCreate,
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> CategoryInDB:
-    print(10)
     try:
         result = await crud.create(new_category=data)
         return result
@@ -26,7 +25,7 @@ async def category_create(
         )
 
 
-@router.get('/get_all')
+@router.get('/list')
 async def category_get(
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> List[CategoryInDB] | None:
@@ -34,7 +33,7 @@ async def category_get(
     return result
 
 
-@router.get('/get_one')
+@router.get('/detail/{id}')
 async def category_get_one(
         data: int,
         crud: CategoryCrud = Depends(CategoryCrud)
@@ -44,20 +43,20 @@ async def category_get_one(
 
 
 
-
-@router.put('/update')
+@router.patch('/update/{id}')
 async def update(
-        data: CategoryUpdate,
+        category_id: int,
+        data: CategoryCreate,
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> CategoryInDB | None:
-    result = await crud.update(category_id=data.id, name_category=data.name)
+    result = await crud.update(category_id=category_id, name_category=data)
     return result
 
 
-@router.post('/delete')
+@router.delete('/delete/{id}')
 async def delete(
-        data: CategoryDelete,
+        category_id: int,
         crud: CategoryCrud = Depends(CategoryCrud)
 ) -> Optional[CategoryInDB]:
-    result = await crud.delete(category_id=data.id)
+    result = await crud.delete(category_id=category_id)
     return result

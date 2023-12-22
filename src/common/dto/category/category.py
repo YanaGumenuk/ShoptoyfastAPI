@@ -27,24 +27,7 @@ class CategoryInDB(
         }
 
 
-class CategoryUpdate(BaseModel):
-    id: int
-    name: str
-
-    class Config:
-        from_attributes = True
-        json_schema_extra = {
-            'id': 1,
-            'name': 'Toy'
-        }
 
 
-class CategoryDelete(BaseModel):
-    id: int
 
-    class Config:
-        from_attributes = True
-        json_schema_extra = {
-            'id': 1
-        }
 

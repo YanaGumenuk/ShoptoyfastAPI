@@ -4,21 +4,18 @@ from src.common.dto.base import BaseInDB
 from pydantic import BaseModel
 
 
-
 class ProductImageDTO(BaseModel):
     category_id: Optional[int] = None
     product_id: Optional[int] = None
     is_main_image: bool = True
+
     class Config:
-        from_attributes = True
+        #from_attributes = True
         json_schema_extra = {
             "category_id": 1,
             "product_id": 1,
             "is_main_image": True
-
-
         }
-
 
 
 class ImageInDB(
@@ -27,7 +24,7 @@ class ImageInDB(
     url: str
 
     class Config:
-        from_attributes = True
+        #from_attributes = True
         json_schema_extra = {
             "id": 1,
             'url': "fuftuf",
