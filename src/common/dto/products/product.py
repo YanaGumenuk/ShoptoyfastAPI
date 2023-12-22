@@ -49,22 +49,3 @@ class ProductInDB(BaseInDB, ProductCreateDTO):
             'description': 'Loren ipsum',
         }
 
-
-class ProductUpdateInDB(BaseModel):
-    id: int
-    name: str
-    category_id: int
-    price: condecimal(max_digits=10, decimal_places=2)
-    available: bool
-    description: str
-
-    class Config:
-        from_attributes = True
-        json_schema_extra = {
-            'id': 1,
-            'name': "Toy",
-            'category_id': 2,
-            'price': 178.9,
-            'available': True,
-            'description': 'Loren ipsum',
-        }

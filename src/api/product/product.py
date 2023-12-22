@@ -2,13 +2,13 @@ from typing import Optional, List
 
 from fastapi import APIRouter, Depends
 
-from src.common.dto.products.product import ProductCreateDTO, ProductInDB, ProductUpdateInDB
+from src.common.dto.products.product import ProductCreateDTO, ProductInDB
 from src.services.database.repositories.product.product import ProductCrud
 
 router = APIRouter()
 
 
-@router.post('/')
+@router.post('/create')
 async def product_create(
         data: ProductCreateDTO,
         crud: ProductCrud = Depends(ProductCrud)
@@ -17,7 +17,7 @@ async def product_create(
     return result
 
 
-@router.get('/get_all')
+@router.get('/list')
 async def product_get(
         crud: ProductCrud = Depends(ProductCrud)
 ) -> List[ProductInDB] | None:
@@ -25,7 +25,7 @@ async def product_get(
     return result
 
 
-@router.get('/get_one')
+@router.get('/detail/{id}')
 async def product_get_one(
         product_id: int,
         crud: ProductCrud = Depends(ProductCrud)
@@ -34,12 +34,13 @@ async def product_get_one(
     return result
 
 
-@router.put('/update')
+@router.patch('/update/{id}')
 async def product_update(
-        data: ProductUpdateInDB,
+        product_id: int,
+        data: ProductCreateDTO,
         crud: ProductCrud = Depends(ProductCrud)
 ) -> ProductInDB | None:
-    result = await crud.update(product_id=data.id,
+    result = await crud.update(product_id=product_id,
                                category_id=data.category_id,
                                product_name=data.name,
                                product_available=data.available,
@@ -48,7 +49,7 @@ async def product_update(
     return result
 
 
-@router.post('/delete')
+@router.delete('/delete/{id}')
 async def product_delete(
         product_id: int,
         crud: ProductCrud = Depends(ProductCrud)
