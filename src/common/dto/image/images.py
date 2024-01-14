@@ -4,13 +4,13 @@ from src.common.dto.base import BaseInDB
 from pydantic import BaseModel
 
 
-class ProductImageDTO(BaseModel):
+class ImageDTO(BaseModel):
     category_id: Optional[int] = None
     product_id: Optional[int] = None
     is_main_image: bool = True
 
     class Config:
-        #from_attributes = True
+        from_attributes = True
         json_schema_extra = {
             "category_id": 1,
             "product_id": 1,
@@ -19,12 +19,12 @@ class ProductImageDTO(BaseModel):
 
 
 class ImageInDB(
-    ProductImageDTO,
+    ImageDTO,
     BaseInDB):
     url: str
 
     class Config:
-        #from_attributes = True
+        from_attributes = True
         json_schema_extra = {
             "id": 1,
             'url': "fuftuf",
@@ -34,3 +34,33 @@ class ImageInDB(
             "product_id": 1,
             "is_main_image": True
         }
+
+
+class ProductImageCategoryDTO(BaseModel):
+    category_id: Optional[int] = None
+    is_main_image: bool = True
+
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            "category_id": 1,
+            "is_main_image": True
+        }
+
+
+class ProductImageDTO(BaseModel):
+    product_id: Optional[int] = None
+    is_main_image: bool = True
+
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
+            "product_id": 1,
+            "is_main_image": True
+        }
+
+
+
+
+
+

@@ -1,66 +1,45 @@
-import string
-from random import choice, random
-from datetime import datetime
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, File
 from sqlalchemy import insert, select, update, delete
 
-from fastapi import UploadFile, HTTPException
+from fastapi import UploadFile
 from starlette.staticfiles import StaticFiles
 
-from src.common.dto.image.images import ImageInDB, ProductImageDTO
+from src.common.dto.image.images import ImageInDB, ProductImageDTO, ImageDTO, ProductImageCategoryDTO
+from src.common.filechek.file_chek import check_file, generate_file_name
 from src.services.database.models.products.images import Image
 from src.services.database.repositories import BaseCrud
-from src.services.database.repositories.product.product import ProductCrud
-from pydantic import ValidationError
+from src.services.database.repositories.image.image import ImageCrud, ImageCrud2
 
 router = APIRouter()
 
 router.mount('/static', StaticFiles(directory='C:\\images'), name='static')
 
 
-class ImageCrud(BaseCrud):
-
-    async def create(self, url: str, new_image: ProductImageDTO) -> Optional[ImageInDB]:
-        print(8)
-        stmt = (insert(Image).values(Image.url == url, **new_image.__dict__).returning(Image))
-        result = await self.session.execute(stmt)
-        await self.session.commit()
-        return result.scalar_one_or_none()
-
-
-
-
-@router.post('/uploadfile/')
-async def create_upload_file(file: UploadFile = File(...), data: ProductImageDTO = Depends()) -> Optional[ImageInDB]:
-    print(file)
-    #if not file.content_type == 'image/jpeg' and not file.size <= 300000:
-        #raise HTTPException(status_code=500, detail='ti menya ne na.. provedesh')
-    #now = datetime.now()
-    # name = now.strftime("%m%d%Y%H%M%S")
-    # for i in range(6):
-    #     name = str(name) + choice(string.ascii_uppercase)
-    # filename = f'{name}.jpeg'
-    # file_path = f'C:\\images\\{filename}'
-    # with open(f'C:\\images\\{name}.jpeg', 'wb') as f:
-    #     f.write(await file.read())
-    # result = await crud.create(url=file_path, new_image=data)
-    # return result
+@router.post('/upload_file/create/{id}')
+async def create_file_category(category_id: int,
+                               file: UploadFile = File(...),
+                               data: ProductImageCategoryDTO = Depends(),
+                               crud: ImageCrud = Depends(ImageCrud)) -> ImageDTO:
+    check_file(file)
+    file_name = generate_file_name()
+    file_path = f'C:\\images\\{file_name}'
+    with open(file_path, 'wb') as f:
+        f.write(await file.read())
+    result = await crud.create(url=file_path, category_id=category_id, new_image=data)
+    return result
 
 
-# url = f'C:\\images\\{create_upload_file.name}.jpeg'
-# class ProductCrud(BaseCrud):
-# async def create(self):
-# stmt = (insert(Image).values(Image.url == url).returning(Image))
-# result = await self.session.execute(stmt)
-# await self.session.commit()
-# return result.scalar_one_or_none()
-
-
-# @router.post('/')
-# async def create(
-# crud: ProductCrud = Depends(ProductCrud)
-# ) -> List[ImageInDB] | None:
-# result = await crud.create()
-# return result
+@router.post('/upload_file/create2/{id}')
+async def create_file_product(product_id: int,
+                              file: UploadFile = File(...),
+                              data: ProductImageDTO = Depends(),
+                              crud: ImageCrud2 = Depends(ImageCrud2)) -> ImageDTO:
+    check_file(file)
+    file_name = generate_file_name()
+    file_path = f'C:\\images\\{file_name}'
+    with open(file_path, 'wb') as f:
+        f.write(await file.read())
+    result = await crud.create(url=file_path, product_id=product_id, new_image=data)
+    return result

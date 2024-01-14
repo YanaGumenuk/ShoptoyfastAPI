@@ -5,6 +5,8 @@ from sqlalchemy import insert, select, update, delete
 
 
 from src.common.dto.category.category import CategoryCreate, CategoryInDB
+from src.common.dto.image.images import ImageInDB
+from src.services.database.models.products.images import Image
 from src.services.database.repositories.base import BaseCrud
 
 from src.services.database.models.products.category import Category

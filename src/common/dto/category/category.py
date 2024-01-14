@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from src.common.dto.base import BaseInDB
 
 
+
 class CategoryCreate(BaseModel):
     name: str
 
@@ -25,6 +26,9 @@ class CategoryInDB(
             "updated_at": "2023-04-02 22:26:20.245464 +00:00",
             "name": "Toy",
         }
+
+
+
 
 
 

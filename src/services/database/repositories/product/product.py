@@ -1,4 +1,4 @@
-import decimal
+
 from typing import Optional, List
 
 from pydantic import condecimal
@@ -16,7 +16,7 @@ class ProductCrud(BaseCrud):
         await self.session.commit()
         return result.scalar_one_or_none()
 
-    async def get_all(self) -> Optional[List[ProductInDB]] or None:
+    async def get_all(self) -> Optional[List[ProductInDB]]:
         stmt = (select(Product))
         result = await self.session.execute(stmt)
         return result.scalars().all()

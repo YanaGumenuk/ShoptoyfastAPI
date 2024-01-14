@@ -5,7 +5,7 @@ from pydantic import BaseModel, condecimal
 from src.common.dto.base import BaseInDB
 
 
-class ProductUpdateDTO(BaseModel):
+class ProductCreateDTO(BaseModel):
     name: str
     category_id: int
     price: condecimal(max_digits=10, decimal_places=2)
@@ -20,20 +20,6 @@ class ProductUpdateDTO(BaseModel):
             'available': True,
             'description': 'Loren ipsum',
         }
-
-
-class ProductCreateDTO(ProductUpdateDTO):
-    category_id: int
-
-    class Config:
-        from_attributes = True
-        json_schema_extra = {
-            'name': "Toy",
-            'price': 178.9,
-            'available': True,
-            'description': 'Loren ipsum',
-        }
-
 
 class ProductInDB(BaseInDB, ProductCreateDTO):
     class Config:
