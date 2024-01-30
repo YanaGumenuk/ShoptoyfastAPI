@@ -1,0 +1,52 @@
+[tool.ruff]
+exclude =[
+    ".git",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "venv",
+    ".venv",
+    ".env",
+    ".idea"
+]
+line-length = 79
+target-version = "py310"
+
+[tool.ruff.format]
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+
+[tool.ruff.lint]
+ignore = []
+
+[tool.ruff.extend-per-file-ignores]
+"__init__.py" = ["F401"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,9 +11,5 @@ Model = TypeVar("Model")
 class BaseCrud:
     model: Type[Model]
 
-    def __init__(self,
-                 db: AsyncSession = Depends(get_session)
-                 ):
+    def __init__(self, db: AsyncSession = Depends(get_session)):
         self.session = db
-
-

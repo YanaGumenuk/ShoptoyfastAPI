@@ -6,13 +6,11 @@ from sqlalchemy.orm import DeclarativeBase
 
 class Base(DeclarativeBase):
     created_at: Mapped[DateTime] = mapped_column(
-        DateTime(timezone=True),
-        nullable=False,
-        default=datetime.now
+        DateTime(timezone=True), nullable=False, default=datetime.now
     )
     updated_at: Mapped[DateTime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
         default=datetime.now,
-        onupdate=datetime.now
+        onupdate=datetime.now,
     )

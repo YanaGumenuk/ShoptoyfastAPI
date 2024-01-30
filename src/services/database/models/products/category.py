@@ -5,14 +5,9 @@ from src.services.database.models.base import Base
 
 
 class Category(Base):
-    __tablename__ = 'category'
+    __tablename__ = "category"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, unique=True, index=True)
 
-    products = relationship('Product', backref='category')
-    images = relationship('Image', backref='category')
-
-
-
-
-
+    products = relationship("Product", backref="category")
+    images = relationship("Image", backref="category")

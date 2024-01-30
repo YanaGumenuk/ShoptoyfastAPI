@@ -4,9 +4,7 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file='./.env',
-        env_file_encoding='utf-8',
-        case_sensitive=True
+        env_file="./.env", env_file_encoding="utf-8", case_sensitive=True
     )
     DB_HOST: str
     DB_PORT: int
@@ -29,5 +27,3 @@ class Settings(BaseSettings):
 @lru_cache(typed=True)
 def load_settings() -> Settings:
     return Settings()
-
-
