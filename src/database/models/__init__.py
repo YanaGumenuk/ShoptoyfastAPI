@@ -1,3 +1,19 @@
-# __all__ = ("category", "Base", "product", "image", "user")
+__all__ = (
+    "category",
+    "base",
+    "product",
+    "image",
+    "user",
+    "characteristic_name",
+    "characteristic_value",
+)
 
-# from database.models import category, image, product
+from src.database.models import (
+    base,
+    category,
+    characteristic_name,
+    characteristic_value,
+    image,
+    product,
+    user,
+)

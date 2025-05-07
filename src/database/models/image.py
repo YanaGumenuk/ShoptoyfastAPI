@@ -1,7 +1,7 @@
 from sqlalchemy import ForeignKey, Integer
 from sqlalchemy.orm import Mapped, mapped_column
 
-from database.models.base import Base
+from src.database.models.base import Base
 
 
 class ProductImage(Base):
@@ -9,7 +9,6 @@ class ProductImage(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     file_id: Mapped[str]
     product_id: Mapped[int] = mapped_column(
-        Integer,
         ForeignKey("products.id", ondelete="CASCADE", onupdate="CASCADE"),
     )
     is_main_image: Mapped[bool]
@@ -20,7 +19,6 @@ class CategoryImage(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     file_id: Mapped[str]
     category_id: Mapped[int] = mapped_column(
-        Integer,
         ForeignKey("categories.id", ondelete="CASCADE", onupdate="CASCADE"),
     )
     is_main_image: Mapped[bool]
