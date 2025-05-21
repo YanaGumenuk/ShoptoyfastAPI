@@ -5,7 +5,7 @@ from pydantic import Field
 from sqlalchemy import delete, insert, select, update
 from sqlalchemy.orm import joinedload, selectinload
 
-from common.dto.product import (
+from src.common.dto.product import (
     ProductDTO,
     ProductInDB,
     ProductWithImagesInDB,

@@ -6,13 +6,12 @@ from pydantic import BaseModel, Field
 from src.common.constants.constant import BASE_PRODUCT_IMAGE_URL
 from src.common.dto.base import BaseInDB
 
-PriceType = Annotated[
-    Decimal, Field(strict=True, max_digits=10, decimal_places=2)
-]
+PriceType = Annotated[Decimal, Field(max_digits=10, decimal_places=2)]
 
 
 class ProductDTO(BaseModel):
     name: str
+    code: str
     category_id: int
     price: PriceType
     available: bool = True

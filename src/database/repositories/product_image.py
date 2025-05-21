@@ -1,6 +1,6 @@
 from sqlalchemy import delete, insert, select
 
-from common.dto.product_images import (
+from src.common.dto.product_images import (
     ProductImagesDTO,
     ProductImagesInDB,
 )

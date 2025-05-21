@@ -10,7 +10,7 @@ def check_file(file: UploadFile):
         file.size is not None and file.size > 300000
     ):
         raise HTTPException(
-            status_code=500, detail="extension is not suitable"
+            status_code=500, detail="Extension is not suitable"
         )
 
 

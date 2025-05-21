@@ -3,15 +3,15 @@ import os.path
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from starlette.responses import FileResponse
 
-from common.dto.category_images import (
+from src.common.constants.constant import IMAGES_DIR
+from src.common.dto.category_images import (
     CategoryImagesDTO,
     CategoryImagesInDB,
 )
-from database.repositories.category_image import (
+from src.common.file_check.file_check import check_file, generate_file_id
+from src.database.repositories.category_image import (
     CategoryImageCrud,
 )
-from src.common.constants.constant import IMAGES_DIR
-from src.common.file_check.file_check import check_file, generate_file_id
 
 router = APIRouter(prefix="/categories-images", tags=["CategoryImage"])
 

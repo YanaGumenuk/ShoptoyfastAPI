@@ -1,7 +1,7 @@
 from sqlalchemy import delete, insert, select, update
 from sqlalchemy.orm import joinedload, selectinload
 
-from common.dto.category import (
+from src.common.dto.category import (
     CategoryDTO,
     CategoryInDB,
     CategoryWithImagesInDB,
